@@ -32,8 +32,10 @@ onMounted( () => {
       <thead>
       <tr>
         <th>번호</th>
-        <th>회원</th>
+        <th>작성자</th>
         <th>제목</th>
+        <th>카테고리</th>
+        <th>작성 일자</th>
       </tr>
       </thead>
       <tbody>
@@ -41,9 +43,13 @@ onMounted( () => {
           <td>{{ post.id }}</td>
           <td>{{ post.member.name }}</td>
           <td>{{ post.title }}</td>
+          <td>{{post.category}}</td>
+          <td>{{post.write_date}}</td>
       </tr>
       </tbody>
     </table>
+    <RouterLink to="/create" class="btn btn-primary" >글쓰기</RouterLink>
+
   </div>
 
 </template>

@@ -7,26 +7,19 @@
       </div>
     </nav>
 
-    <!-- 모달 시작 -->
-    <div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true" v-if="showModal">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">로그인</h5>
-            <button type="button" class="btn-close" data-bs-target="#loginModal"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="login">
               <div class="mb-3">
-                <label for="username" class="form-label">사용자명</label>
-                <input type="text" class="form-control" id="username" v-model="username">
+                <a href='http://localhost:8080/oauth2/authorization/google'>
+                  <img style="width: 100%" src="../../images/google_signup.png" alt="img">
+                </a>
               </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">비밀번호</label>
-                <input type="password" class="form-control" id="password" v-model="password">
-              </div>
-              <button type="submit" class="btn btn-primary">로그인</button>
-            </form>
           </div>
         </div>
       </div>
@@ -42,10 +35,9 @@ const username = ref('');
 const password = ref('');
 const showModal = ref(false);
 
-const showLoginModal = () => {
-  showModal.value = true;
-  console.log('Show modal:', showModal.value);
-};
+const handleGoogle = async () => {
+
+}
 
 const closeLoginModal = () => {
   showModal.value = false;

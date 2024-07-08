@@ -15,6 +15,14 @@ const router = createRouter({
     {
       path : '/detail/:id',
       component : () => import('../views/BoardDetail.vue')
+    },
+    {
+      path : '/login/oauth2/code',
+      component : () => import('../components/RedirectPage.vue')
+    },
+    {
+      path : '/create',
+      component : () => import('../views/BoardCreate.vue')
     }
   ]
 })

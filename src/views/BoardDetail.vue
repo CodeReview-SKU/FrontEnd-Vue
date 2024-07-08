@@ -38,9 +38,8 @@ onMounted( () => {
   <div class="container">
 
   <div class="container mt-5">
-    <h1 class="mb-4">게시물 상세 페이지</h1>
     <div v-if="data">
-      <h2>{{ data.title }}</h2>
+      <h1 class="mb-4">{{ data.title }}</h1>
       <p>{{ data.content }}</p>
       <router-link to="/" class="btn btn-primary">목록으로 돌아가기</router-link>
     </div>
