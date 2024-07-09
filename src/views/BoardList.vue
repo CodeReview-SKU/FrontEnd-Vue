@@ -6,6 +6,7 @@ import {useRouter} from "vue-router";
 
 const list = ref([]);
 const router = useRouter();
+const isLoggedIn = ref(false);
 const getList = () => {
   axios.get("http://localhost:8080/board/list")
       .then((res) => {
@@ -22,6 +23,9 @@ function goToDetail(id) {
 
 onMounted( () => {
   getList();
+  if(sessionStorage.getItem("token")) {
+    isLoggedIn.value = true;
+  }
 })
 
 </script>
@@ -48,7 +52,7 @@ onMounted( () => {
       </tr>
       </tbody>
     </table>
-    <RouterLink to="/create" class="btn btn-primary" >글쓰기</RouterLink>
+    <RouterLink v-if="isLoggedIn" to="/create" class="btn btn-primary" >글쓰기</RouterLink>
 
   </div>
 

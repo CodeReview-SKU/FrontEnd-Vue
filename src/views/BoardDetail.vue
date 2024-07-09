@@ -2,8 +2,11 @@
 import axios from "axios";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
+import CommentCreate from "@/views/CommentCreate.vue";
 
 const route = useRoute();
+const isLoggedIn = ref(false);
+
 
 const data = ref();
 const comments = ref();
@@ -30,6 +33,9 @@ const getComment = () => {
 onMounted( () => {
   getData();
   getComment();
+  if(sessionStorage.getItem("token")) {
+    isLoggedIn.value = true;
+  }
 })
 
 </script>
@@ -37,17 +43,18 @@ onMounted( () => {
 <template>
   <div class="container">
 
-  <div class="container mt-5">
-    <div v-if="data">
-      <h1 class="mb-4">{{ data.title }}</h1>
-      <p>{{ data.content }}</p>
-      <router-link to="/" class="btn btn-primary">목록으로 돌아가기</router-link>
+    <div class="container mt-5">
+      <div v-if="data">
+        <h1 class="mb-4">{{ data.title }}</h1>
+        <p>{{ data.content }}</p>
+        <router-link to="/" class="btn btn-primary">목록으로 돌아가기</router-link>
+      </div>
+      <div v-else>
+        <p>게시물을 찾을 수 없습니다.</p>
+      </div>
     </div>
-    <div v-else>
-      <p>게시물을 찾을 수 없습니다.</p>
-    </div>
-  </div>
 
+    <CommentCreate v-if="isLoggedIn"/>
     <div class="comment-list mt-4">
       <h2 class="mb-3">댓글</h2>
       <div v-if="comments">

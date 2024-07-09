@@ -14,21 +14,21 @@ export default {
     const router = useRouter();
     const route = useRoute();
 
-    const handleOAuthKakao = async (token, id) => {
+    const handleOAuthKakao = async (token, name) => {
       try {
         sessionStorage.setItem('token', token);
-        sessionStorage.setItem('id', id);
+        sessionStorage.setItem('name', name);
         await router.push('/');
       } catch (error) {
-        router.push('/join');
+        router.push('/');
       }
     };
 
     onMounted(() => {
       const token = route.query.accessToken
-      const id = route.query.id;
+      const name = route.query.name;
       if (token) {
-        handleOAuthKakao(token, id);
+        handleOAuthKakao(token, name);
       }
       else {
         alert("다시시도.");
