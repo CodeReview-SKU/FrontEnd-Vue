@@ -17,12 +17,8 @@ const router = createRouter({
       component : () => import('../views/BoardDetail.vue')
     },
     {
-      path : '/login/oauth2/code',
+      path : '/login/redirect',
       component : () => import('../components/RedirectPage.vue')
-    },
-    {
-      path : '/create',
-      component : () => import('../views/BoardCreate.vue')
     }
   ]
 })
