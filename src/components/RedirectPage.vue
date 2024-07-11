@@ -8,19 +8,23 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
+import {useLoggedIn} from "@/stores/counter.js";
 
 export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const login = useLoggedIn();
 
     const handleOAuthKakao = async (token, name) => {
       try {
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('name', name);
+        login.setLogin();
         await router.push('/');
+        //console.log(login.isLoggedIn);
       } catch (error) {
-        router.push('/');
+        await router.push('/');
       }
     };
 

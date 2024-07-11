@@ -3,8 +3,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <h1 class="navbar-brand m-2" @click="router.push('/')" style="font-size: x-large; cursor: pointer">Code review</h1>
-        <button v-if="!isLoggedIn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
-        <button v-if="isLoggedIn" class="btn btn-primary" @click="logout">로그아웃</button>
+        <button v-if="!loggedIn.isLoggedIn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+        <button v-if="loggedIn.isLoggedIn" class="btn btn-primary" @click="logout">로그아웃</button>
       </div>
     </nav>
 
@@ -17,26 +17,40 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import Login from "@/views/Login.vue";
+import {useLoggedIn} from "@/stores/counter.js";
+
+
 const isLoggedIn = ref(false);
 const router = useRouter();
 
-
+const loggedIn = useLoggedIn();
 
 const logout = () => {
   sessionStorage.removeItem("token");
   isLoggedIn.value = false;
+  loggedIn.offLogin();
   alert("로그아웃 되었습니다.");
   window.location.reload();
 };
 
+watch(
+    () => loggedIn.isLoggedIn, // 감시할 대상
+    (newLoggedIn, oldLoggedIn) => {
+      // 변화가 감지될 때 실행할 코드
+      if (newLoggedIn) {
+        isLoggedIn.value = true;
+      } else {
+        //console.log('사용자가 로그아웃했습니다.')
+        isLoggedIn.value = false;
+      }
+    }
+)
 onMounted(() => {
   // 페이지 로드 시 sessionStorage에 저장된 token을 기준으로 isLoggedIn 초기화
-  isLoggedIn.value = !!sessionStorage.getItem('token');
+  loggedIn.isLoggedIn = !!sessionStorage.getItem("isLoggedIn");
 });
 
-watch(() => sessionStorage.getItem('token'), (newToken) => {
-  isLoggedIn.value = !! newToken;
-});
+
 
 </script>
 

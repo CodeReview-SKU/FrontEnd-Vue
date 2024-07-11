@@ -2,12 +2,17 @@
   <div class="container mb-5">
     <div class="container mt-5">
       <div v-if="data">
-        <h1 class="mb-4">{{ data.title }}</h1>
+          <h1 class="mb-4 text-dark-emphasis">{{ data.title }}</h1>
+          <h5 class="text-muted mb-4">{{setDate(data.write_date)}}</h5>
         <p class="container">{{ data.content }}</p>
         <h4>소스코드</h4>
-        <div class="container mb-4" v-if="data.source_code">
+        <div class="container mb-4 mt-4" v-if="data.source_code">
           <!-- highlight.js를 사용하여 코드 강조 -->
-          <pre><code class="java" v-html="hljs.highlightAuto(data.source_code).value"></code></pre>
+          <highlightjs
+              class="rounded-3"
+              :code="data.source_code"
+              :autodetect="true"
+          />
         </div>
         <div class="container text-muted mb-4" v-else>
           <h6>소스코드가 없습니다.</h6>
@@ -19,14 +24,14 @@
       </div>
     </div>
 
-    <CommentCreate v-if="isLoggedIn" />
+    <CommentCreate v-if="loggedIn.isLoggedIn" />
     <div class="comment-list mt-4">
       <h2 class="mb-3">댓글</h2>
       <div v-if="comments">
         <ul class="list-group">
           <li v-for="(comment, index) in comments" :key="index" class="list-group-item">
             <strong>{{ comment.member.name }}</strong>
-            <small class="text-muted m-2">{{ comment.createDate }}</small>
+            <small class="text-muted m-2">{{ setDate(comment.createDate) }}</small>
             <p class="m-3">{{ comment.content }}</p>
           </li>
         </ul>
@@ -42,16 +47,16 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import hljs from 'highlight.js';
-import java from 'highlight.js/lib/languages/java.js'
-import 'highlight.js/styles/github-dark.css'
 import CommentCreate from "@/views/CommentCreate.vue";
-hljs.initHighlightingOnLoad();
-hljs.registerLanguage('java', java);
+import 'highlight.js/styles/srcery.css'
+import hljsVuePlugin from "@highlightjs/vue-plugin";
+import {useLoggedIn} from "@/stores/counter.js";
+
 const route = useRoute();
 const isLoggedIn = ref(false);
 const data = ref();
 const comments = ref([]);
+const loggedIn = useLoggedIn();
 
 const getData = () => {
   axios.get(`http://localhost:8080/board/detail/${route.params.id}`)
@@ -75,23 +80,31 @@ const getComment = () => {
       });
 };
 
-onMounted(() => {
+function setDate(date) {
+  const originalDate = new Date(date);
+
+  const year = originalDate.getFullYear().toString().slice(-4);
+  const month = ('0' + (originalDate.getMonth() + 1)).slice(-2);
+  const day = ('0' + originalDate.getDate()).slice(-2);
+  const hours = ('0' + originalDate.getHours()).slice(-2);
+  const minutes = ('0' + originalDate.getMinutes()).slice(-2);
+  const ampm = (hours / 12) ? "오후" : "오전";
+
+  return `${year}년 ${month}월 ${day}일 ${ampm} ${hours % 12}시 ${minutes}분`;
+}
+
+const highlightjs = hljsVuePlugin.component;
+
+onMounted(async () => {
   getData();
   getComment();
-  if (sessionStorage.getItem("token")) {
-    isLoggedIn.value = true;
-  }
+  loggedIn.isLoggedIn = !!sessionStorage.getItem("isLoggedIn");
 });
 
-
-
-onMounted(() => {
-
-});
 </script>
 
 
 
 <style scoped>
-@import "highlight.js/styles/github-dark.css";
+
 </style>

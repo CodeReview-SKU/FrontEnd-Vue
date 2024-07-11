@@ -15,9 +15,6 @@
       </div>
       <div class="mb-3">
         <label for="content" class="form-label">소스 코드</label>
-        <select class="form-select" id="langs" v-model="lan" @change="highlightCode" required>
-          <option v-for="lan in langs" :key="lan.value" :value="lan.value">{{ lan.label }}</option>
-        </select>
         <textarea class="form-control" id="code" rows="10" v-model="code" ></textarea>
       </div>
       <div class="mb-3">

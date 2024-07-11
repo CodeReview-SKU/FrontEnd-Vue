@@ -1,11 +1,11 @@
 <template>
-  <div class="container-fluid mt-3 mb-3">
+  <div class="container-fluid mt-3 mb-3 p-3">
     <form @submit.prevent="handleSubmit">
       <div class="mb-3">
-        <label for="comment" class="form-label">댓글</label>
+        <label for="comment" class="form-label">댓글 작성하기</label>
         <textarea class="form-control" id="comment" rows="3" v-model="comment" required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">제출</button>
+      <button type="submit" class="btn btn-primary">등록</button>
     </form>
   </div>
 </template>
