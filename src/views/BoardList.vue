@@ -34,21 +34,21 @@ onMounted( () => {
   <div class="container mt-4">
     <table class="table table-hover">
       <thead>
-      <tr>
-        <th>번호</th>
+      <tr class="text-center">
         <th>작성자</th>
         <th>제목</th>
         <th>카테고리</th>
         <th>작성 일자</th>
+        <th>좋아요 수</th>
       </tr>
       </thead>
       <tbody>
-      <tr style="cursor: pointer" v-for="post in list" :key="post.id" @click="goToDetail(post.id)">
-          <td>{{ post.id }}</td>
+      <tr class="text-center" style="cursor: pointer" v-for="post in list" :key="post.id" @click="goToDetail(post.id)">
           <td>{{ post.member.name }}</td>
           <td>{{ post.title }}</td>
           <td>{{post.category}}</td>
           <td>{{post.write_date}}</td>
+          <td>{{post.likeCount}}</td>
       </tr>
       </tbody>
     </table>
