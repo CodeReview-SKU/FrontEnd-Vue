@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-5 mb-5">
     <h2 class="mb-4">글 작성</h2>
     <form @submit.prevent="handleSubmit">
       <div class="mb-3">
@@ -38,7 +38,12 @@
           <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">제출</button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">제출</button>
+        <RouterLink to="/">
+          <button class="btn btn-secondary">취소</button>
+        </RouterLink>
+      </div>
     </form>
   </div>
 </template>
@@ -54,7 +59,7 @@ export default {
     const content = ref('');
     const lan = ref('javascript');
     const selectedTag = ref('');
-    const selectedCategory = ref('');
+    const selectedCategory = ref('질문');
     const id = ref();
     const code = ref('');
 

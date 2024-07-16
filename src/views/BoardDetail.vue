@@ -1,10 +1,19 @@
 <template>
-  <div class="container mb-5">
-    <div class="container mt-5">
+  <div class="container mb-3">
+    <div class="container mt-4">
+        <router-link to="/" class="btn btn-primary mb-4">목록으로 돌아가기</router-link>
       <div v-if="data">
-          <h1 class="mb-4 text-dark-emphasis">{{ data.title }}</h1>
-          <h5 class="text-muted mb-4">{{setDate(data.write_date)}}</h5>
-        <p class="container">{{ data.content }}</p>
+          <div class="d-flex justify-content-start">
+            <h1 class="mb-4 text-dark-emphasis me-3">{{ data.title }}</h1>
+            <LikeBtn/>
+          </div>
+          <div class="d-flex justify-content-between">
+            <h5 class="text-muted mb-0 ms-2"  >{{setDate(data.write_date)}}</h5>
+            <h5 class="text-dark-emphasis">작성자 : {{data.member.name}} </h5>
+          </div>
+        <hr></hr>
+        <p class="container mb-5" v-html="enterReplace(data.content)" ></p>
+        <hr/>
         <h4>소스코드</h4>
         <div class="container mb-4 mt-4" v-if="data.source_code">
           <!-- highlight.js를 사용하여 코드 강조 -->
@@ -17,22 +26,23 @@
         <div class="container text-muted mb-4" v-else>
           <h6>소스코드가 없습니다.</h6>
         </div>
-        <router-link to="/" class="btn btn-primary">목록으로 돌아가기</router-link>
       </div>
       <div v-else>
         <p>게시물을 찾을 수 없습니다.</p>
       </div>
     </div>
 
+      <hr/>
     <CommentCreate v-if="loggedIn.isLoggedIn" />
     <div class="comment-list mt-4">
+      <hr/>
       <h2 class="mb-3">댓글</h2>
       <div v-if="comments">
         <ul class="list-group">
           <li v-for="(comment, index) in comments" :key="index" class="list-group-item">
             <strong>{{ comment.member.name }}</strong>
             <small class="text-muted m-2">{{ setDate(comment.createDate) }}</small>
-            <p class="m-3">{{ comment.content }}</p>
+            <p class="m-3" v-html="enterReplace(comment.content)"></p>
           </li>
         </ul>
       </div>
@@ -51,6 +61,7 @@ import CommentCreate from "@/views/CommentCreate.vue";
 import 'highlight.js/styles/srcery.css'
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 import {useLoggedIn} from "@/stores/counter.js";
+import LikeBtn from "@/components/LikeBtn.vue";
 
 const route = useRoute();
 const isLoggedIn = ref(false);
@@ -101,6 +112,10 @@ onMounted(async () => {
   loggedIn.isLoggedIn = !!sessionStorage.getItem("isLoggedIn");
 });
 
+
+function enterReplace(str) {
+  return str.replace(/\n/g, '<br>');
+}
 </script>
 
 
