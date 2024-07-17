@@ -3,8 +3,11 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
       <div class="container-fluid">
         <h1 class="navbar-brand m-2" @click="router.push('/')" style="font-size: x-large; cursor: pointer">Code review</h1>
-        <button v-if="!loggedIn.isLoggedIn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
-        <button v-if="loggedIn.isLoggedIn" class="btn btn-secondary" @click="logout">로그아웃</button>
+        <div>
+          <button v-if="!loggedIn.isLoggedIn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</button>
+          <RouterLink v-if="loggedIn.isLoggedIn" class="btn btn-secondary me-3" to="/profile">내 정보</RouterLink>
+          <button v-if="loggedIn.isLoggedIn" class="btn btn-secondary" @click="logout">로그아웃</button>
+        </div>
       </div>
     </nav>
 

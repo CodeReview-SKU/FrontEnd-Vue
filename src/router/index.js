@@ -23,6 +23,10 @@ const router = createRouter({
     {
       path: '/create',
       component : () => import('../views/BoardCreate.vue')
+    },
+    {
+      path : '/profile',
+      component : () => import('../views/Profile.vue')
     }
   ]
 })
