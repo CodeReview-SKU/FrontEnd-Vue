@@ -12,7 +12,6 @@
     </nav>
 
     <Login id="loginModal"/>
-    <!-- 모달 끝 -->
   </div>
 </template>
 
@@ -30,6 +29,7 @@ const loggedIn = useLoggedIn();
 
 const logout = () => {
   sessionStorage.removeItem("token");
+  sessionStorage.removeItem("name");
   isLoggedIn.value = false;
   loggedIn.offLogin();
   alert("로그아웃 되었습니다.");
