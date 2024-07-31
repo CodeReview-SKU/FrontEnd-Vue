@@ -5,7 +5,7 @@
       <div v-if="data">
           <div class="d-flex justify-content-start">
             <h1 class="mb-4 text-dark-emphasis me-3">{{ data.title }}</h1>
-<!--            <LikeBtn/>-->
+            <LikeBtn :data="{ board : data.id, member : member }" />
           </div>
           <div class="d-flex justify-content-between">
             <h5 class="text-muted mb-0 ms-2"  >{{setDate(data.write_date)}}</h5>
@@ -61,13 +61,15 @@ import CommentCreate from "@/views/CommentCreate.vue";
 import 'highlight.js/styles/srcery.css'
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 import {useLoggedIn} from "@/stores/counter.js";
-// import LikeBtn from "@/components/LikeBtn.vue";
+import LikeBtn from "@/components/LikeBtn.vue";
 
 const route = useRoute();
 const isLoggedIn = ref(false);
 const data = ref();
 const comments = ref([]);
 const loggedIn = useLoggedIn();
+const member = ref("");
+
 
 const getData = () => {
   axios.get(`http://localhost:8080/board/detail/${route.params.id}`)
@@ -110,6 +112,7 @@ onMounted(async () => {
   getData();
   getComment();
   loggedIn.isLoggedIn = !!sessionStorage.getItem("isLoggedIn");
+  member.value = sessionStorage.getItem("name");
 });
 
 

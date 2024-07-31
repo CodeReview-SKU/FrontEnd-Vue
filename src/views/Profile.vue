@@ -14,17 +14,21 @@
             <h5>기본 정보</h5>
             <ul class="list-group">
               <li class="list-group-item"><strong>이름:</strong> {{member.name}}</li>
-              <li class="list-group-item"><strong>소셜 로그인:</strong> {{member.accountProvider}}</li>
+              <li class="list-group-item"><strong>소셜 로그인:</strong> {{member.accountProvider ? member.accountProvider : "없음"}}</li>
             </ul>
 
             <h5 class="mt-3">작성한 글</h5>
             <ul class="list-group" v-for="board in boardList" :key="board.id">
-              <li class="list-group-item link-offset-1-hover" @click="goToDetail(board.id)"><strong>{{board.title}}</strong> {{ board.content }}</li>
+              <li class="list-group-item link-offset-1-hover d-flex justify-content-between" @click="goToDetail(board.id)"><strong>{{board.title}}</strong>{{ board.content }}
+                <button class="badge bg-secondary" @click.stop="deleteBoard(board.id)">삭제</button>
+              </li>
             </ul>
 
             <h5 class="mt-5">작성한 댓글</h5>
             <ul class="list-group" v-for="comment in commentList" :key="comment.id">
-              <li class="list-group-item"><strong>{{comment.board.title}}</strong> {{ comment.content }}</li>
+              <li class="list-group-item d-flex justify-content-between"><strong>{{comment.board.title}}</strong> {{ comment.content }}
+                <button class="badge bg-secondary" @click.stop="deleteComment(comment.id)">삭제</button>
+              </li>
             </ul>
           </div>
         </div>
@@ -61,6 +65,8 @@ const getMember = () => {
       });
 }
 
+
+
 const getBoardList = () => {
   const memberId = sessionStorage.getItem('name');
   const token = sessionStorage.getItem('token');
@@ -82,6 +88,32 @@ const getCommentList = () => {
       .then(res => {
         console.log(res.data);
         commentList.value = res.data;
+      })
+      .catch(e => {
+        console.log(e);
+      })
+}
+
+const deleteBoard = (id) => {
+  const token = sessionStorage.getItem('token');
+
+  axios.delete(`http://localhost:8080/board/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
+      .then(res => {
+        alert('게시물이 삭제 되었습니다.');
+        window.location.reload();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+}
+
+const deleteComment = (id) => {
+  const token = sessionStorage.getItem('token');
+
+  axios.delete(`http://localhost:8080/comment/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
+      .then(res => {
+        alert('댓글이 삭제 되었습니다.');
+        window.location.reload();
       })
       .catch(e => {
         console.log(e);

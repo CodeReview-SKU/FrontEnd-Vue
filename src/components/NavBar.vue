@@ -33,7 +33,7 @@ const logout = () => {
   isLoggedIn.value = false;
   loggedIn.offLogin();
   alert("로그아웃 되었습니다.");
-  window.location.reload();
+  router.push('/');
 };
 
 watch(
