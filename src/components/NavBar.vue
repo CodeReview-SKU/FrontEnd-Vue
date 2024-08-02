@@ -20,6 +20,7 @@ import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import Login from "@/views/Login.vue";
 import {useLoggedIn} from "@/stores/counter.js";
+import axios from "axios";
 
 
 const isLoggedIn = ref(false);
@@ -32,6 +33,11 @@ const logout = () => {
   sessionStorage.removeItem("name");
   isLoggedIn.value = false;
   loggedIn.offLogin();
+  axios.get('http://localhost:8080/member/logout').then(res => {
+    console.log(res.data);
+  }).catch(e => {
+        console.log(e);
+  })
   alert("로그아웃 되었습니다.");
   router.push('/');
 };

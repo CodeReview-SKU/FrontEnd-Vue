@@ -6,6 +6,7 @@ import {useRouter} from "vue-router";
 const user = ref({
   username: '',
   email: '',
+  id : '',
   password: '',
   confirmPassword: ''
 });
@@ -71,7 +72,7 @@ const validateEmail = (email) => {
 };
 
 const submitForm = () => {
-  axios.post('http://localhost:8080/member/register', {name : user.value.username, userId : user.value.email, password : user.value.password})
+  axios.post('http://localhost:8080/member/register', {name : user.value.username, email : user.value.email, userId : user.value.id, password : user.value.password})
       .then(res => {
         console.log(res.data);
         alert("회원가입 성공.");
@@ -98,13 +99,13 @@ const submitForm = () => {
           <small v-else-if="nameAvailable && clicked2" class="text-success">이 닉네임은 사용가능 합니다.</small>
         </div>
         <div class="mb-3">
-          <label for="email" class="form-label">이메일:</label>
+          <label for="email" class="form-label">아이디:</label>
           <div class="d-flex">
-            <input type="email" class="form-control me-3" id="email" v-model="user.email" required>
+            <input type="email" class="form-control me-3" id="email" v-model="user.id" required>
             <button type="submit" class="btn btn-secondary " @click="checkEmailAvailability">check</button>
           </div>
-          <small v-if="!emailAvailable && clicked" class="text-danger">이 이메일은 이미 사용 중입니다.</small>
-          <small v-else-if="emailAvailable && clicked" class="text-success">이 이메일은 사용가능 합니다.</small>
+          <small v-if="!emailAvailable && clicked" class="text-danger">이 아이디는 이미 사용 중입니다.</small>
+          <small v-else-if="emailAvailable && clicked" class="text-success">이 아이디는 사용가능 합니다.</small>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">비밀번호:</label>
@@ -113,6 +114,12 @@ const submitForm = () => {
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">비밀번호 확인:</label>
           <input type="password" class="form-control" id="confirmPassword" v-model="user.confirmPassword">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">이메일:</label>
+          <div class="d-flex">
+            <input type="email" class="form-control me-3" id="email" v-model="user.email" required>
+          </div>
         </div>
         <div v-if="errors.length" class="alert alert-danger">
           <ul>

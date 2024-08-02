@@ -30,6 +30,15 @@
                 <button class="badge bg-secondary" @click.stop="deleteComment(comment.id)">삭제</button>
               </li>
             </ul>
+
+            <h5 class="mt-5">좋아요 누른 글</h5>
+            <ul class="list-group" v-for="liked in likedList" :key="liked.id">
+              <li class="list-group-item d-flex justify-content-between" @click="goToDetail(liked.board.id)">
+                <strong>{{liked.board.title}}</strong>
+                {{ liked.board.content }}
+                {{}}
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -45,6 +54,7 @@ import {useRouter} from "vue-router";
 const member = ref({});
 const boardList = ref([]);
 const commentList = ref([]);
+const likedList = ref([]);
 
 const router = useRouter();
 
@@ -65,7 +75,18 @@ const getMember = () => {
       });
 }
 
-
+const getLikedList = () => {
+  const token = sessionStorage.getItem('token');
+  const memberId = sessionStorage.getItem('name');
+  axios.get(`http://localhost:8080/bookmark/list/${memberId}`, {headers: {Authorization : "Bearer " + token}})
+      .then(res => {
+        likedList.value = res.data;
+        console.log(res.data)
+      })
+      .catch(res => {
+        console.log(res);
+      })
+}
 
 const getBoardList = () => {
   const memberId = sessionStorage.getItem('name');
@@ -122,9 +143,10 @@ const deleteComment = (id) => {
 
 
 onMounted(() => {
-getMember();
-getBoardList();
-getCommentList();
+  getMember();
+  getBoardList();
+  getCommentList();
+  getLikedList();
 })
 </script>
 

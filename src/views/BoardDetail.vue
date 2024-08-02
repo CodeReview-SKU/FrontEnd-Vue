@@ -5,10 +5,19 @@
       <div v-if="data">
           <div class="d-flex justify-content-start">
             <h1 class="mb-4 text-dark-emphasis me-3">{{ data.title }}</h1>
-            <LikeBtn :data="{ board : data.id, member : member }" />
+            <div class="me-5" v-if="loggedIn.isLoggedIn">
+              <LikeBtn :data="{ board : data.id, member : member }" />
+            </div>
+            <div>
+              <h4>
+                좋아요 : {{data.likeCount}}
+              </h4>
+            </div>
           </div>
+
           <div class="d-flex justify-content-between">
             <h5 class="text-muted mb-0 ms-2"  >{{setDate(data.write_date)}}</h5>
+
             <h5 class="text-dark-emphasis">작성자 : {{data.member.name}} </h5>
           </div>
         <hr></hr>

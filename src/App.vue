@@ -5,10 +5,15 @@ import NavBar from "./components/NavBar.vue"
 </script>
 
 <template>
-  <div class="container-fluid">
-    <NavBar/>
-    <RouterView/>
-  </div>
+  <head>
+    <title>Code Review</title>
+  </head>
+  <body>
+    <div class="container-fluid mb-5">
+      <NavBar/>
+      <RouterView/>
+    </div>
+  </body>
 </template>
 
 <style scoped>
