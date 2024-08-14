@@ -74,39 +74,48 @@ watch(() => sessionStorage.getItem('token'), (newToken) => {
         <div v-if="inLogin">
 
         <div class="modal-header">
-          <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+          <h5 class="modal-title text-center" id="loginModalLabel">Code Review 로그인</h5>
 
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="email" class="form-label">이메일:</label>
-            <input type="email" class="form-control" id="email" v-model="email">
+            <label for="email" class="form-label">아이디:</label>
+            <input type="email" class="form-control" id="email" v-model="email" required>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">비밀번호:</label>
-            <input type="password" class="form-control" id="password" v-model="password">
+            <input type="password" class="form-control" id="password" v-model="password" required>
           </div>
-          <div class="mb-3">
-            <button type="submit" class="btn btn-primary" @click="loginWithIdPw">로그인</button>
+          <div class="mb-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-100" @click="loginWithIdPw">로그인</button>
           </div>
-          <div class="mb-3">
-            <a @click="loginWithOAuth2">
-              <img style="width: 100%" src="../../images/google_signup.png" alt="img">
+          <hr>
+          <p class="text-muted text-center">소셜계정으로 로그인</p>
+          <div class="mb-1 d-flex justify-content-center">
+            <a class="" @click="loginWithOAuth2">
+              <img style="cursor: pointer" src="../../images/google_login.svg" alt="img">
             </a>
+<!--            <a>-->
+<!--              <img style="cursor: pointer" src="../../images/btn_kakao.svg" alt="img">-->
+<!--            </a>-->
           </div>
         </div>
-          <a @click="click">회원가입</a>
+          <div class="d-flex mb-3 justify-content-center">
+            <a class="text-muted me-3" style="cursor: pointer" @click="click">회원가입</a>
+            <a class="text-muted me-3">|</a>
+            <a class="text-muted" style="cursor: pointer;">문의하기</a>
+          </div>
         </div>
         <div v-else>
 
           <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">회원가입</h5>
+            <h5 class="modal-title" id="loginModalLabel">Code Review 회원가입</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <Register/>
-            <a @click="click">로그인</a>
+            <a class="text-muted m-2 d-flex justify-content-center" style="cursor: pointer" @click="click">로그인</a>
           </div>
         </div>
       </div>
