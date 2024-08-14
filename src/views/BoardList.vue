@@ -14,7 +14,7 @@ const loggedIn = useLoggedIn();
 const getList = () => {
   axios.get("http://localhost:8080/board/list")
       .then((res) => {
-        list.value = res.data.reverse();
+        list.value = res.data;
         console.log(list.value);
       })
       .catch(e => {
@@ -59,7 +59,7 @@ onMounted( () => {
       </thead>
       <tbody>
       <tr class="text-center" style="cursor: pointer" v-for="post in list" :key="post.id" @click="goToDetail(post.id)">
-          <td>{{ post.member.name }}</td>
+          <td>{{ post.name }}</td>
           <td>{{ post.title }}</td>
           <td>{{post.category}}</td>
           <td>{{setDate(post.write_date)}}</td>

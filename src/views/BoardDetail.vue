@@ -18,7 +18,7 @@
           <div class="d-flex justify-content-between">
             <h5 class="text-muted mb-0 ms-2"  >{{setDate(data.write_date)}}</h5>
 
-            <h5 class="text-dark-emphasis">작성자 : {{data.member.name}} </h5>
+            <h5 class="text-dark-emphasis">작성자 : {{data.name}} </h5>
           </div>
         <hr></hr>
         <p class="container mb-5" v-html="enterReplace(data.content)" ></p>
