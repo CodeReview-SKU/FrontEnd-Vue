@@ -81,7 +81,7 @@ const member = ref("");
 
 
 const getData = () => {
-  axios.get(`http://localhost:8080/board/detail/${route.params.id}`)
+  axios.get(`/api/board/detail/${route.params.id}`)
       .then(res => {
         data.value = res.data;
         console.log(data.value);
@@ -92,7 +92,7 @@ const getData = () => {
 };
 
 const getComment = () => {
-  axios.get(`http://localhost:8080/comment/board/${route.params.id}`)
+  axios.get(`/api/comment/board/${route.params.id}`)
       .then(res => {
         comments.value = res.data;
         console.log(comments.value);

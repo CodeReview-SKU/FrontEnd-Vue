@@ -33,7 +33,7 @@ const logout = () => {
   sessionStorage.removeItem("name");
   isLoggedIn.value = false;
   loggedIn.offLogin();
-  axios.get('http://localhost:8080/member/logout').then(res => {
+  axios.get('/api/member/logout').then(res => {
     console.log(res.data);
   }).catch(e => {
         console.log(e);

@@ -65,7 +65,7 @@ function goToDetail(id) {
 const getMember = () => {
   const memberId = sessionStorage.getItem('name');
   const token = sessionStorage.getItem('token');
-  axios.get(`http://localhost:8080/member/detail/${memberId}`, {headers: {Authorization : "Bearer " + token}})
+  axios.get(`/api/member/detail/${memberId}`, {headers: {Authorization : "Bearer " + token}})
       .then(res => {
         member.value = res.data;
         console.log(member.value);
@@ -78,7 +78,7 @@ const getMember = () => {
 const getLikedList = () => {
   const token = sessionStorage.getItem('token');
   const memberId = sessionStorage.getItem('name');
-  axios.get(`http://localhost:8080/bookmark/list/${memberId}`, {headers: {Authorization : "Bearer " + token}})
+  axios.get(`/api/bookmark/list/${memberId}`, {headers: {Authorization : "Bearer " + token}})
       .then(res => {
         likedList.value = res.data;
         console.log(res.data)
@@ -91,7 +91,7 @@ const getLikedList = () => {
 const getBoardList = () => {
   const memberId = sessionStorage.getItem('name');
   const token = sessionStorage.getItem('token');
-  axios.get(`http://localhost:8080/board/list/${memberId}`, {headers: {Authorization : "Bearer " + token}})
+  axios.get(`/api/board/list/${memberId}`, {headers: {Authorization : "Bearer " + token}})
       .then(res => {
         boardList.value = res.data;
         console.log(res.data);
@@ -105,7 +105,7 @@ const getCommentList = () => {
   const memberId = sessionStorage.getItem('name');
   const token = sessionStorage.getItem('token');
 
-  axios.get(`http://localhost:8080/comment/member/${memberId}`,{headers: {Authorization : "Bearer " + token}})
+  axios.get(`/api/comment/member/${memberId}`,{headers: {Authorization : "Bearer " + token}})
       .then(res => {
         console.log(res.data);
         commentList.value = res.data;
@@ -118,7 +118,7 @@ const getCommentList = () => {
 const deleteBoard = (id) => {
   const token = sessionStorage.getItem('token');
 
-  axios.delete(`http://localhost:8080/board/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
+  axios.delete(`/api/board/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
       .then(res => {
         alert('게시물이 삭제 되었습니다.');
         window.location.reload();
@@ -131,7 +131,7 @@ const deleteBoard = (id) => {
 const deleteComment = (id) => {
   const token = sessionStorage.getItem('token');
 
-  axios.delete(`http://localhost:8080/comment/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
+  axios.delete(`/api/comment/delete/${id}`, {headers: {Authorization : "Bearer " + token}})
       .then(res => {
         alert('댓글이 삭제 되었습니다.');
         window.location.reload();

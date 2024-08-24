@@ -23,7 +23,7 @@ const loginWithOAuth2 = () => {
 };
 
 const loginWithIdPw = () => {
-  axios.post('http://localhost:8080/member/signin',{userId : email.value, password : password.value})
+  axios.post('/api/member/signin',{userId : email.value, password : password.value})
       .then(res => {
         console.log(res.data);
         sessionStorage.setItem('token', res.data.token);

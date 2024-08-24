@@ -23,7 +23,7 @@ export default {
     const route = useRoute();
     const handleSubmit = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/comment/comments', {
+        const response = await axios.post('/api/comment/comments', {
           content: comment.value,
           name : name.value,
           board_id: route.params.id

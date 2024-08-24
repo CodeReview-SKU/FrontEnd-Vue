@@ -101,7 +101,7 @@ export default {
 
     const handleSubmit = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/board/detail', {
+        const response = await axios.post('/api/board/detail', {
           title: title.value,
           member_id : id.value,
           content: content.value,

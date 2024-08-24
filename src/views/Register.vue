@@ -27,7 +27,7 @@ const checkEmailAvailability = async () => {
     if(!user.value.email) {
       return;
     }
-    const response = await axios.get(`http://localhost:8080/member/check/email/${user.value.id}`);
+    const response = await axios.get(`/api/member/check/email/${user.value.id}`);
     console.log(response.data);
     emailAvailable.value = response.data;
     clicked.value = true;
@@ -42,7 +42,7 @@ const checkNameAvailability = async () => {
     if(!user.value.username) {
       return;
     }
-    const response = await axios.get(`http://localhost:8080/member/check/name/${user.value.username}`);
+    const response = await axios.get(`/api/member/check/name/${user.value.username}`);
     console.log(response.data);
     nameAvailable.value = response.data;
     clicked2.value = true;
@@ -85,7 +85,7 @@ const submitForm = () => {
     return; // 하나라도 비어 있으면 함수 종료
   }
   if(emailAvailable.value && nameAvailable.value && errors.value.length === 0) {
-    axios.post('http://localhost:8080/member/register', {name : user.value.username, email : user.value.email, userId : user.value.id, password : user.value.password})
+    axios.post('/api/member/register', {name : user.value.username, email : user.value.email, userId : user.value.id, password : user.value.password})
         .then(res => {
           console.log(res.data);
           alert("회원가입 성공.");

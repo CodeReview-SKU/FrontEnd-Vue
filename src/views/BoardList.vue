@@ -12,7 +12,7 @@ const loggedIn = useLoggedIn();
 
 
 const getList = () => {
-  axios.get("http://localhost:8080/board/list")
+  axios.get("/api/board/list")
       .then((res) => {
         list.value = res.data;
         console.log(list.value);
